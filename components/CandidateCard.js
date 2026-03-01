@@ -37,7 +37,7 @@ export default function CandidateCard({ candidate, totalSpent, flagCount }) {
           <span>Limit: {formatKES(candidate.declared_spending_limit)}</span>
         </div>
         <div className="w-full bg-ash-dark rounded-full h-2">
-          <div className={`h-2 rounded-full ${barColor} transition-all`}
+          <div className={`h-2 rounded-full ${barColor} transition-all`} 
                style={{ width: `${pct}%` }} />
         </div>
         <p className="text-right text-xs text-gray-400 mt-0.5">{pct}% of limit used</p>
