@@ -1,6 +1,6 @@
 // components/Footer.js — Production 4-column footer
 import Link from 'next/link'
-import { ShieldLogo } from './Navbar'
+import { SiteLogo } from './Navbar'
 
 const platformLinks = [
     { href: '/', label: 'Dashboard' },
@@ -35,7 +35,7 @@ export default function Footer() {
                     {/* Column 1 — Brand */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-2.5">
-                            <ShieldLogo size={30} white />
+                            <SiteLogo size={30} />
                             <span className="text-gold font-bold text-base">The Samaritan</span>
                         </div>
                         <p className="text-gray-400 text-xs leading-relaxed">
@@ -133,9 +133,9 @@ export default function Footer() {
                                 </a>
                             </p>
                             <p className="text-sm mt-1">
-                                <a href="tel:+254203750329"
+                                <a href="tel:+25471234567"
                                     className="text-gray-400 hover:text-white transition-colors">
-                                    +254 20 375 0329
+                                    +254 712 345 67
                                 </a>
                             </p>
                         </div>

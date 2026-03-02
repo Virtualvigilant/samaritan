@@ -11,6 +11,7 @@ const NAV = [
     { href: '/admin/manage', icon: '🗂️', label: 'Manage Records' },
     { href: '/admin/flags', icon: '🚩', label: 'Review Flags' },
     { href: '/admin/tipoffs', icon: '🛡️', label: 'Tip-Offs' },
+    { href: '/admin/comments', icon: '💬', label: 'Comments' },
 ]
 
 export default function AdminLayout({ children }) {

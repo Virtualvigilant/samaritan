@@ -27,6 +27,19 @@
 @layer base {
   body {
     @apply text-gray-800 antialiased;
+    /* space for fixed mobile bottom tab bar */
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  /* Mobile bottom padding for tab bar */
+  @media (max-width: 1023px) {
+    body {
+      padding-bottom: 72px;
+    }
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 4px);
   }
 
   h1 {

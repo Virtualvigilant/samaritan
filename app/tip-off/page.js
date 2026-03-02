@@ -401,7 +401,7 @@ export default function TipOffPage() {
       <p className="text-xs text-gray-400 text-center">
         Transparency International Kenya · KISP Programme · FCDO Supported<br/>
         For emergencies or urgent tips, contact TI Kenya directly:{' '}
-        <a href="tel:+254203750329" className="text-gold hover:underline">+254 20 375 0329</a>
+        <a href="tel:+25471234567" className="text-gold hover:underline">+254 20 375 0329</a>
       </p>
     </div>
   )
