@@ -1,6 +1,7 @@
 'use client'
 // app/ask/page.js — AI-Powered Q&A using local DeepSeek via LM Studio
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { supabase, formatKES } from '@/lib/supabase'
 
 const SUGGESTED = [
@@ -136,10 +137,22 @@ export default function AskPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="flex flex-col h-[100dvh] lg:h-auto lg:max-w-3xl lg:mx-auto lg:space-y-6 bg-ash lg:bg-transparent -mt-8 pt-8 lg:pt-0 lg:-mt-0">
 
-      {/* Header */}
-      <div>
+      {/* Mobile-only app header */}
+      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-navy text-white sticky top-0 z-50">
+        <Link href="/" className="p-2 -ml-2 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </Link>
+        <div className="font-semibold text-base tracking-wide flex-1 text-center pr-6">
+          The Samaritan
+        </div>
+      </div>
+
+      {/* Desktop Header */}
+      <div className="hidden lg:block">
         <p className="section-title">AI Transparency Assistant</p>
         <h1>Ask About Campaign Finance</h1>
         <p className="text-gray-500 text-sm mt-1">
@@ -149,10 +162,10 @@ export default function AskPage() {
       </div>
 
       {/* Chat window */}
-      <div className="card p-0 overflow-hidden flex flex-col" style={{ height: '520px' }}>
+      <div className="flex-1 flex flex-col lg:card lg:p-0 overflow-hidden lg:h-[600px] h-full bg-white lg:bg-transparent shadow-lg lg:shadow-none">
 
         {/* Messages area */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 pb-24 lg:pb-5">
 
           {/* Welcome message */}
           {messages.length === 0 && (
@@ -253,8 +266,8 @@ export default function AskPage() {
         </div>
       </div>
 
-      {/* Disclaimer */}
-      <div className="card bg-ash border-ash-dark text-sm text-gray-500">
+      {/* Desktop Disclaimer */}
+      <div className="hidden lg:block card bg-ash border-ash-dark text-sm text-gray-500">
         <strong className="text-navy">ℹ️ About this tool:</strong> The Samaritan AI answers questions using data
         declared to the IEBC. It can only report what has been officially filed — it cannot verify undeclared
         activities. For suspected violations, please{' '}

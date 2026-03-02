@@ -79,7 +79,7 @@ export default function Navbar() {
     return (
         <>
             {/* ── Top Navbar ────────────────────────────────────────── */}
-            <nav className="bg-navy shadow-lg sticky top-0 z-50">
+            <nav className={`bg-navy shadow-lg sticky top-0 z-50 ${pathname === '/ask' ? 'hidden lg:block' : ''}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
 
@@ -149,7 +149,7 @@ export default function Navbar() {
             </nav>
 
             {/* ── Mobile Bottom Tab Bar ─────────────────────────────── */}
-            {!isAdmin && (
+            {!isAdmin && pathname !== '/ask' && (
                 <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-navy border-t border-navy-light safe-bottom">
                     <div className="flex items-center justify-around px-1 py-1">
                         {mobileTabs.slice(0, 2).map(tab => {
