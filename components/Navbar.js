@@ -49,12 +49,8 @@ const mobileTabs = [
         icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
     },
     {
-        href: '/community-reports', label: 'Reports',
-        icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-    },
-    {
-        href: '/ask', label: 'Ask AI',
-        icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+        id: 'more', label: 'More',
+        icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
     },
 ]
 
@@ -180,6 +176,17 @@ export default function Navbar() {
                         </Link>
 
                         {mobileTabs.slice(2).map(tab => {
+                            if (tab.id === 'more') {
+                                return (
+                                    <button key={tab.id} onClick={() => setExploreOpen(!exploreOpen)}
+                                        className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-lg min-w-0 flex-1 transition-colors
+                                            ${exploreOpen ? 'text-gold' : 'text-gray-400'}`}>
+                                        {tab.icon}
+                                        <span className="text-[10px] font-medium mt-0.5 truncate">{tab.label}</span>
+                                        {exploreOpen && <span className="w-4 h-0.5 bg-gold rounded-full mt-0.5" />}
+                                    </button>
+                                )
+                            }
                             const active = pathname === tab.href
                             return (
                                 <Link key={tab.href} href={tab.href}
@@ -194,6 +201,93 @@ export default function Navbar() {
                     </div>
                 </div>
             )}
+
+            {/* Mobile "More" Menu Drawer */}
+            {exploreOpen && !isAdmin && (
+                <div className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setExploreOpen(false)}>
+                    <div className="absolute bottom-16 left-0 right-0 bg-navy border-t border-navy-light rounded-t-2xl shadow-2xl p-4 animate-slideUpMenu" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between mb-4 px-2">
+                            <h3 className="text-white font-bold text-lg">Explore Platform</h3>
+                            <button onClick={() => setExploreOpen(false)} className="text-gray-400 p-2">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </div>
+
+                        {/* Main Explore Links */}
+                        <div className="grid grid-cols-1 gap-2 mb-6">
+                            {exploreLinks.map(l => (
+                                <Link key={l.href} href={l.href}
+                                    onClick={() => setExploreOpen(false)}
+                                    className={`flex items-center gap-3 p-4 rounded-xl transition-colors
+                                        ${pathname === l.href ? 'bg-white/10 text-gold' : 'bg-navy-dark text-gray-300 hover:bg-navy-light hover:text-white'}`}>
+                                    <span className="text-xl">{l.label.split(' ')[0]}</span>
+                                    <span className="font-semibold text-sm">{l.label.substring(l.label.indexOf(' ') + 1)}</span>
+                                </Link>
+                            ))}
+                        </div>
+
+                        {/* Footer / Extra Links (Mobile Only) */}
+                        <div className="px-2 space-y-6 max-h-[40vh] overflow-y-auto pb-4 custom-scrollbar">
+
+                            {/* Data & Legal */}
+                            <div>
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-gold mb-3">Data & Legal</h4>
+                                <ul className="space-y-3">
+                                    <li>
+                                        <Link href="/reports" onClick={() => setExploreOpen(false)} className="text-gray-400 text-xs hover:text-white transition-colors">
+                                            Methodology & Sources
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.iebc.or.ke" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-xs hover:text-white transition-colors inline-flex items-center gap-1">
+                                            IEBC Official Portal
+                                            <svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://kenyalaw.org" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-xs hover:text-white transition-colors inline-flex items-center gap-1">
+                                            Kenya Law
+                                            <svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                        </a>
+                                    </li>
+                                    <li><Link href="/reports" onClick={() => setExploreOpen(false)} className="text-gray-400 text-xs hover:text-white transition-colors">Legal Framework (ECF Act 2013)</Link></li>
+                                    <li><Link href="/reports" onClick={() => setExploreOpen(false)} className="text-gray-400 text-xs hover:text-white transition-colors">Privacy Policy</Link></li>
+                                    <li><Link href="/reports" onClick={() => setExploreOpen(false)} className="text-gray-400 text-xs hover:text-white transition-colors">Terms of Use</Link></li>
+                                </ul>
+                            </div>
+
+                            {/* Partners & Contact */}
+                            <div>
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-gold mb-3">Partners & Contact</h4>
+                                <ul className="space-y-1.5 mb-4">
+                                    {['TI Kenya', 'KISP Programme', 'ELGIA', 'URAI Trust', 'CMD Kenya'].map(p => (
+                                        <li key={p} className="text-gray-400 text-xs">{p}</li>
+                                    ))}
+                                </ul>
+                                <div className="space-y-1.5">
+                                    <p className="text-xs">
+                                        <a href="mailto:report@campaignwatch.or.ke" className="text-gray-400 hover:text-white transition-colors">report@campaignwatch.or.ke</a>
+                                    </p>
+                                    <p className="text-xs">
+                                        <a href="tel:+25471234567" className="text-gray-400 hover:text-white transition-colors">+254 712 345 67</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <style jsx global>{`
+                @keyframes slideUpMenu {
+                    from { transform: translateY(100%); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                .animate-slideUpMenu {
+                    animation: slideUpMenu 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+            `}</style>
         </>
     )
 }
